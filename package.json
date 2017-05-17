@@ -1,0 +1,33 @@
+{
+  "name": "modern-webapp-template",
+  "version": "1.0.0",
+  "description": "React, TypeScript, and more good stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Roher",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://onedrive.live.com/"
+  },
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^15.0.24",
+    "@types/react-dom": "^15.5.0",
+    "awesome-typescript-loader": "^3.1.3",
+    "css-loader": "^0.28.1",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.5",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.17.0",
+    "tslint": "^5.2.0",
+    "typescript": "^2.3.2",
+    "webpack": "^2.5.1"
+  }
+}
