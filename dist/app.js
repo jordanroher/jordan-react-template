@@ -95,8 +95,8 @@ __webpack_require__(8);
 // State is never set so we use the 'undefined' type.
 var Hello = (function (_super) {
     __extends(Hello, _super);
-    function Hello() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function Hello(props) {
+        return _super.call(this, props) || this;
     }
     Hello.prototype.render = function () {
         return React.createElement("h1", { className: "title" },
