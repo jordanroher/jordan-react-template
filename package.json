@@ -4,6 +4,8 @@
   "description": "React, TypeScript, and more good stuff",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jordan Roher",

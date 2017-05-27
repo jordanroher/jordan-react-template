@@ -6,18 +6,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-let plugins = [
-    new webpack.optimize.CommonsChunkPlugin({
-        names: ["vendor1", "vendor2"]
-    }),
-    new CleanWebpackPlugin(["dist"], null),
-    new HtmlWebpackPlugin({
-        template: './src/index.html',
-        inject: 'body'
-    })
-];
-
-module.exports = {
+var config = {
     entry: {
         app: "./src/index.tsx",
         vendor1: ["react", "react-dom"],
@@ -28,7 +17,16 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
-    plugins: plugins,
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+        names: ["vendor1", "vendor2"]
+        }),
+        new CleanWebpackPlugin(["dist"], null),
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            inject: 'body'
+        })
+    ],
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
@@ -36,6 +34,10 @@ module.exports = {
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+
+    devServer: {
+        historyApiFallback: true,
     },
 
     module: {
@@ -55,13 +57,11 @@ module.exports = {
                 loader: "html"
             },
 
-            debug
-                ? {
-                    enforce: "pre",
-                    test: /\.js$/,
-                    loader: "source-map-loader"
-                }
-                : null,
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
 
             {
                 test: /\.scss$/,
@@ -70,3 +70,16 @@ module.exports = {
         ]
     }
 };
+
+if (!debug) {
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    );
+}
+
+module.exports = config;
