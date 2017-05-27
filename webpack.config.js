@@ -1,9 +1,34 @@
+const debug = process.env.NODE_ENV !== "production";
+
+const webpack = require("webpack");
+const path = require("path");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+let plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+        names: ["vendor1", "vendor2"]
+    }),
+    new CleanWebpackPlugin(["dist"], null),
+    new HtmlWebpackPlugin({
+        template: './src/index.html',
+        inject: 'body'
+    })
+];
+
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+        app: "./src/index.tsx",
+        vendor1: ["react", "react-dom"],
+        vendor2: ["moment"]
+    },
     output: {
-        filename: "app.js",
+        filename: "[name].[chunkhash].js",
         path: __dirname + "/dist"
     },
+
+    plugins: plugins,
 
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
@@ -15,31 +40,33 @@ module.exports = {
 
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            {
+                test: /\.tsx?$/,
+                loader: "ts-loader",
+                options: {
+                    compilerOptions: {
+                        "sourceMap": debug
+                    }
+                }
+            },
 
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            {
+                test: /\.tpl.html/,
+                loader: "html"
+            },
+
+            debug
+                ? {
+                    enforce: "pre",
+                    test: /\.js$/,
+                    loader: "source-map-loader"
+                }
+                : null,
 
             {
                 test: /\.scss$/,
-                use: [{
-                    loader: "style-loader" // creates style nodes from JS strings
-                }, {
-                    loader: "css-loader" // translates CSS into CommonJS
-                }, {
-                    loader: "sass-loader" // compiles Sass to CSS
-                }]
+                use: ["style-loader", "css-loader", "sass-loader"]
             }
         ]
-    },
-
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    },
+    }
 };

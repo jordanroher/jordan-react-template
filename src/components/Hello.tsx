@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as moment from "moment";
 import "./Hello.scss";
 
 interface HelloProps {
@@ -14,6 +15,11 @@ export class Hello extends React.Component<HelloProps, undefined> {
     }
 
     render() {
-        return <h1 className="title">Hello from {this.props.compiler} and {this.props.framework}!</h1>;
+        return (
+            <div>
+                <h1 className="title">Hello from {this.props.compiler} and {this.props.framework}!</h1>
+                <p>The time is {moment().format()}</p>
+            </div>
+        );
     }
 }
