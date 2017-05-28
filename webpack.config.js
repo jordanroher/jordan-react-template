@@ -53,8 +53,7 @@ const baseConfig = {
         "js/lib": [
              "react",
              "react-dom",
-             "moment",
-             //"redux"
+             "moment"
         ]
     },
     plugins: [
@@ -122,7 +121,9 @@ const prodConfig = assign({}, baseConfig, {
             filename: "css/app.css",
             allChunks: true
         }),
-        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            comments: false
+        }),
     ]),
     module: {
         rules: concat(baseConfig.module.rules, [
