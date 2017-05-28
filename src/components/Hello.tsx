@@ -18,7 +18,7 @@ export class Hello extends React.Component<HelloProps, undefined> {
         return (
             <div>
                 <h1 className="title">Hello from {this.props.compiler} and {this.props.framework}!</h1>
-                <p>The time is {moment().format()}</p>
+                <p>The time is {moment().format()} and I am feeling fine.</p>
             </div>
         );
     }

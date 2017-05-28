@@ -1,6 +1,3 @@
-// npm install --save cross-env
-// RUN: cross-env NODE_ENV=production webpack
-
 const webpack = require("webpack");
 const path = require("path");
 const { assign, concat } = require("lodash");
@@ -10,8 +7,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const debug = process.env.NODE_ENV !== "production";
-const sourcePath = path.resolve(__dirname, "src"); // or .resolve()
-const destPath = path.resolve(__dirname, "dist"); // or .resolve()
+const sourcePath = path.resolve(__dirname, "src");
+const destPath = path.resolve(__dirname, "dist");
 
 function styleLoaders() {
     const styleLoader = {
@@ -50,10 +47,10 @@ const baseConfig = {
         filename: "[name].[chunkhash].js"
     },
     entry: {
-        "assets/app": [
+        "js/app": [
             "./src/index.tsx"
         ],
-        "assets/vendor": [
+        "js/lib": [
              "react",
              "react-dom",
              "moment",
@@ -61,14 +58,14 @@ const baseConfig = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist"], null),
+        new CleanWebpackPlugin(["./dist"], null),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             inject: 'body'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "assets/vendor",
-            filename: "assets/vendor.js",
+            name: "js/lib",
+            filename: "js/lib.[chunkhash].js",
             minChunks: Infinity
         }),
         new EnvironmentPlugin(["NODE_ENV"], {
@@ -104,17 +101,7 @@ const devConfig = assign({}, baseConfig, {
         devtoolModuleFilenameTemplate: "webpack:///[absolute-resource-path]"
     }),
     devServer: {
-        port: 8080,
-        inline: true,
-        historyApiFallback: true,
-        publicPath: "http://localhost:8080",
-        contentBase: baseConfig.output.path,
-        stats: "errors-only",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credential": "*",
-            "Access-Control-Max-Age": "1",
-        },
+        historyApiFallback: true
     },
     module: {
         rules: concat(baseConfig.module.rules, [
@@ -131,14 +118,8 @@ const prodConfig = assign({}, baseConfig, {
     bail: true,
     devtool: false,
     plugins: concat(baseConfig.plugins, [
-        /*
-        new webpack.LoaderOptionsPlugin({
-            debug: false,
-            minimize: true
-        }),
-        */
         new ExtractTextPlugin({
-            filename: "assets/app.css",
+            filename: "css/app.css",
             allChunks: true
         }),
         new webpack.optimize.UglifyJsPlugin(),
@@ -154,10 +135,6 @@ const prodConfig = assign({}, baseConfig, {
     }
 });
 
-const finalConfig = debug
+module.exports = debug
     ? devConfig
     : prodConfig;
-
-//console.log(finalConfig);
-
-module.exports = finalConfig;
