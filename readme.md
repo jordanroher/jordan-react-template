@@ -7,3 +7,10 @@ It's only designed for a production build. I recommend the [React developer tool
 Next up is source maps and a hot-swap development build, but this was a lot of trouble to get working as it is.
 
 Much thanks to Wes at [CodeMentor](https://www.codementor.io/) for getting me up to speed with webpack. Turns out it isn't actually `grunt` reskinned, it's more of a single-purpose React builder.
+
+## Usage
+
+`git clone https://github.com/jordanroher/jordan-react-template`
+`cd jordan-react-template`
+`npm install` or `sudo npm install` on Mac
+`grunt`
