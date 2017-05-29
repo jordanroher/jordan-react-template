@@ -24,8 +24,9 @@ module.exports = function (grunt) {
 			lib: {
 				files: {
 					"./dist/js/lib.js": [
-						"./node_modules/react/dist/react.js",
-						"./node_modules/react-dom/dist/react-dom.js",
+						"./node_modules/react/dist/react.min.js",
+						"./node_modules/react-dom/dist/react-dom.min.js",
+						"./node_modules/moment/moment.js"
 					]
 				}
 			}
