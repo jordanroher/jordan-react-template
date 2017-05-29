@@ -1,22 +1,18 @@
 {
-  "name": "modern-webapp-template",
+  "name": "jordan-react-template",
   "version": "1.0.0",
-  "description": "React, TypeScript, and more good stuff",
+  "description": "Using grunt and webpack to build a production React, TypeScript, and SASS site",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open",
-    "dev": "webpack",
-    "prod": "cross-env NODE_ENV=production webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "grunt"
   },
   "author": "Jordan Roher",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://onedrive.live.com/"
+    "url": "https://github.com/jordanroher/jordan-react-template"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
