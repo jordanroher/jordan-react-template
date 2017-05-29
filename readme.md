@@ -11,6 +11,9 @@ Much thanks to Wes at [CodeMentor](https://www.codementor.io/) for getting me up
 ## Usage
 
 `git clone https://github.com/jordanroher/jordan-react-template`
+
 `cd jordan-react-template`
+
 `npm install` or `sudo npm install` on Mac
+
 `grunt`
