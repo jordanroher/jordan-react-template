@@ -50,9 +50,11 @@ const baseConfig = {
         "js/app": [
             "./src/index.tsx"
         ],
-        "js/lib": [
+        "js/lib1": [
              "react",
              "react-dom",
+        ],
+        "js/lib2": [
              "moment"
         ]
     },
@@ -63,7 +65,7 @@ const baseConfig = {
             inject: 'body'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "js/lib",
+            names: ["js/lib1", "js/lib2"],
             filename: "js/lib.[chunkhash].js",
             minChunks: Infinity
         }),
