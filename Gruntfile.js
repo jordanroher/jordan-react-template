@@ -51,8 +51,8 @@ module.exports = function (grunt) {
 						replacement: "<script type=\"text/javascript\" src=\"/js/lib.js\"></script><script"
 					},
 					{
-						match: /<script type=\"text\/javascript\" src=\"js\/app\./gi,
-						replacement: "<script type=\"text/javascript\" src=\"/js/app."
+						match: /src=\"js/gi,
+						replacement: "src=\"/js"
 					},
 					{
 						match: /<link href=\"([A-Z0-9\.\/]+)\" rel=\"stylesheet\">/gi,
